@@ -32,9 +32,7 @@ jobs:
           script: |
             echo "Starting deployment..."
             cd /var/www/html/arista
-            git fetch origin develop
-            git reset --hard origin/develop
-            php artisan cache:clear
+            git pull origin main
             echo "Deployment completed."
 
 
