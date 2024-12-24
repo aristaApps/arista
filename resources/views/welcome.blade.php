@@ -21,7 +21,7 @@
                         <!-- Membungkus gambar dalam div flex agar berdampingan dan lebih kecil -->
                         <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-4">
                             <img src="{{ asset('sbadmin2/img/kem.png') }}" alt="Gambar Kem" class="w-30 sm:w-35 rounded-lg">
-                            <img src="{{ asset('sbadmin2/img/more-shadow.png') }}" alt="Gambar More Shadow" class="w-32 sm:w-40 rounded-lg">
+                            {{-- <img src="{{ asset('sbadmin2/img/more-shadow.png') }}" alt="Gambar More Shadow" class="w-32 sm:w-40 rounded-lg"> --}}
                         </div>
                         <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-2">Aplikasi Sistem Terstruktur Arsip LLDIKTI WILAYAH IX</h1>
                         {{-- <h1 class="text-4xl font-extrabold text-gray-800 mb-4"></h1> --}}
