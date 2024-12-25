@@ -50,14 +50,31 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[OP.GG](https://op.gg)**
 - 
 
-## instalation docker
-    - **[cek docker version]**
+## 1. instalation docker
+    - cek docker version
     $ sudo docker --version
     - jika belum terinstall
     $ sudo apt update && sudo apt upgrade -y
     - Instal dependensi yang diperlukan
     $ sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
-    
+    $ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+    $ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+    $ apt-cache policy docker-ce
+    $ sudo apt install docker-ce
+    $ sudo systemctl status docker
+    $ sudo usermod -aG docker ${USER}
+    $ su - ${USER}
+    - cek apakah sudah ada group
+    $ groups
+## 2.Create SSH key Di Server untuk Deploy
+    sudo adduser deployer
+    - silakan install acl jika belum punya
+        $ sudo apt install acl
+        $ sudo setfacl -R -m u:deployer:rwx /home/aplikasi
+
+    # set permission yang perlu di folder tujuan, saat sudah ada projectnya
+        $ chmod 777 -R /home/aplikasi/storage
+        $ chmod 777 -R /home/aplikasi/public
 
 ## Contributing
 
