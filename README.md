@@ -79,6 +79,10 @@ We would like to extend our thanks to the following sponsors for funding Laravel
         $ su deploy
         ## nanti akan jadinya seperti ini
             deploy@arista:/home$
+    # buat private key dan public key
+        $ ssh-keygen -t rsa
+    $ copy isi dari public key ke authorized key:
+        $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 
 ## Contributing
 
