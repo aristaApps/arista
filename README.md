@@ -50,7 +50,13 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - **[OP.GG](https://op.gg)**
 - 
 
-## instalation docker 
+## instalation docker
+    - cek docker version
+    $ sudo docker --version
+    - jika belum terinstall
+    $ sudo apt update && sudo apt upgrade -y
+    - Instal dependensi yang diperlukan
+    $ sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
     
 
 ## Contributing
