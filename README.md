@@ -75,6 +75,10 @@ We would like to extend our thanks to the following sponsors for funding Laravel
     # set permission yang perlu di folder tujuan, saat sudah ada projectnya
         $ chmod 777 -R /home/apps/storage
         $ chmod 777 -R /home/apps/public
+    # login sebagai deployer
+        $ su deployer
+        ## nanti akan jadinya seperti ini
+            deployer@arista:/home$
 
 ## Contributing
 
