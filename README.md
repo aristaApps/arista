@@ -51,7 +51,7 @@ We would like to extend our thanks to the following sponsors for funding Laravel
 - 
 
 ## instalation docker
-    - [ cek docker version ]
+    - **[cek docker version]
     $ sudo docker --version
     - jika belum terinstall
     $ sudo apt update && sudo apt upgrade -y
