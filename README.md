@@ -81,8 +81,23 @@ We would like to extend our thanks to the following sponsors for funding Laravel
             deploy@arista:/home$
     # buat private key dan public key
         $ ssh-keygen -t rsa
-    $ copy isi dari public key ke authorized key:
+    # copy isi dari public key ke authorized key:
         $ cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+    # masuk folder, buka terminal di /home/apps folder
+        $ git clone https://github.com/mallawatech/docker-apache-php8.3-mysql.git .
+        $ docker-compose up -d
+    # masuk ke container webserver
+    - Proses install letsencrypt
+        $ docker exec -it webserver bash
+        $ certbot --apache -d arista.madigmet.com -m mallawaconnection@gmail.com
+        $ certbot --apache -d arista.madigmet.com -d www.arista.madigmet.com -m mallawaconnection@gmail.com
+## sampai di sini harusnya sudah bisa berjalan tapi jika masih ada masalah coba langkah di bawah ini
+    root@arista:/home/apps# docker ps
+    CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                                                                      NAMES
+    5a8465efd894   apps-webserver   "docker-php-entrypoi…"   54 minutes ago   Up 13 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp   webserver
+    d9e15d7ab78d   mysql:5.7        "docker-entrypoint.s…"   55 minutes ago   Up 13 minutes   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp                       mysql-container
+    root@arista:/home/apps# docker run -v /var/run/docker.sock:/var/run/docker.sock -it apps-webserver /bin/bash
+
 
 ## Contributing
 
