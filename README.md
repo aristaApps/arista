@@ -67,14 +67,14 @@ We would like to extend our thanks to the following sponsors for funding Laravel
     - cek apakah sudah ada group
     $ groups
 ## 2.Create SSH key Di Server untuk Deploy
-    sudo adduser deployer
-    - silakan install acl jika belum punya
+        $ sudo adduser deployer
+    # silakan install acl jika belum punya
         $ sudo apt install acl
-        $ sudo setfacl -R -m u:deployer:rwx /home/aplikasi
+        $ sudo setfacl -R -m u:deployer:rwx /home/apps
 
     # set permission yang perlu di folder tujuan, saat sudah ada projectnya
-        $ chmod 777 -R /home/aplikasi/storage
-        $ chmod 777 -R /home/aplikasi/public
+        $ chmod 777 -R /home/apps/storage
+        $ chmod 777 -R /home/apps/public
 
 ## Contributing
 
