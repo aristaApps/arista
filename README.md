@@ -76,9 +76,9 @@ We would like to extend our thanks to the following sponsors for funding Laravel
         $ chmod 777 -R /home/apps/storage
         $ chmod 777 -R /home/apps/public
     # login sebagai deployer
-        $ su deployer
+        $ su deploy
         ## nanti akan jadinya seperti ini
-            deployer@arista:/home$
+            deploy@arista:/home$
 
 ## Contributing
 
