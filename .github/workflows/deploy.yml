@@ -20,6 +20,6 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             echo "Starting deployment..."
-            cd /var/www/html/arista && && bash .scripts/deploy.sh
+            cd /var/www/html/arista && bash .scripts/deploy.sh
 
 
