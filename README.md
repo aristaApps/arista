@@ -93,6 +93,7 @@ We would like to extend our thanks to the following sponsors for funding Laravel
         $ certbot --apache -d arista.madigmet.com -d www.arista.madigmet.com -m mallawaconnection@gmail.com
 ## sampai di sini harusnya sudah bisa berjalan tapi jika masih ada masalah coba langkah di bawah ini
     root@arista:/home/apps# docker ps
+    ##pastikan statusnya UP ditiap container ID
     CONTAINER ID   IMAGE            COMMAND                  CREATED          STATUS          PORTS                                                                      NAMES
     5a8465efd894   apps-webserver   "docker-php-entrypoi…"   54 minutes ago   Up 13 minutes   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp   webserver
     d9e15d7ab78d   mysql:5.7        "docker-entrypoint.s…"   55 minutes ago   Up 13 minutes   0.0.0.0:3306->3306/tcp, :::3306->3306/tcp, 33060/tcp                       mysql-container
