@@ -22,11 +22,6 @@ jobs:
             echo "Starting deployment..."
             cd /var/www/html/arista
             # Sinkronisasi file dengan rsync
-              echo -e "${YELLOW}Memulai proses deploy...${NC}"
-              rsync -avz --progress \
-                  --exclude-from="$EXCLUDE_FILE" \
-                  "$LOCAL_PATH" "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_PATH}"
-
               if [ $? -eq 0 ]; then
                   echo -e "${GREEN}Deploy berhasil!${NC}"
               else
