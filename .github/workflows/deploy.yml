@@ -22,20 +22,17 @@ jobs:
             echo "Starting deployment..."
             cd /var/www/html/arista
             # Sinkronisasi file dengan rsync
-              echo -e "${YELLOW}Memulai proses deploy...${NC}"
-              rsync -avz --progress \
-                  --exclude-from="$EXCLUDE_FILE" \
-                  "$LOCAL_PATH" "${REMOTE_USER}@${REMOTE_HOST}:${REMOTE_PATH}"
-
               if [ $? -eq 0 ]; then
                   echo -e "${GREEN}Deploy berhasil!${NC}"
               else
                   echo -e "${RED}Deploy gagal. Periksa log di atas untuk melihat kesalahan.${NC}"
                   exit 1
               fi
+
               # Restart server (opsional, jika menggunakan layanan seperti Nginx atau Apache)
               echo -e "${YELLOW}Restart layanan server...${NC}"
-               "sudo systemctl restart nginx"
+              ssh "${REMOTE_USER}@${REMOTE_HOST}" "sudo systemctl restart nginx"
+
               if [ $? -eq 0 ]; then
                   echo -e "${GREEN}Layanan server berhasil direstart.${NC}"
               else
