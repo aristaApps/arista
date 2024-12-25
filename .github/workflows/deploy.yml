@@ -9,6 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      #cek apakah ini berhasil masuk atau tidak
       - uses: actions/checkout@v2
       - name: Deploy Code
         uses: appleboy/ssh-action@v1.2.0
@@ -19,8 +20,6 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             echo "Starting deployment..."
-            cd /var/www/html/arista
-            git pull origin main
-            echo "Deployment completed."
+            cd /var/www/html/arista && && bash .scripts/deploy.sh
 
 
