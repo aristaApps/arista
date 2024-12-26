@@ -89,8 +89,8 @@ We would like to extend our thanks to the following sponsors for funding Laravel
     # masuk ke container webserver
     - Proses install letsencrypt
         $ docker exec -it webserver bash
-        $ certbot --apache -d arista.madigmet.com -m mallawaconnection@gmail.com
-        $ certbot --apache -d arista.madigmet.com -d www.arista.madigmet.com -m mallawaconnection@gmail.com
+        $ certbot --apache -d arista.madignet.com -m mallawaconnection@gmail.com
+        $ certbot --apache -d arista.madignet.com -d www.arista.madignet.com -m mallawaconnection@gmail.com
 ## sampai di sini harusnya sudah bisa berjalan tapi jika masih ada masalah coba langkah di bawah ini
     root@arista:/home/apps# docker ps
     ##pastikan statusnya UP ditiap container ID
