@@ -16,7 +16,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Deploy to server via SSH
+      # Step 2: Set Git Safe Directory
+      - name: Set Git Safe Directory
+        run: |
+          git config --global --add safe.directory /var/www/arista
+
+      # Step 3: Deploy to server via SSH
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
@@ -25,7 +30,13 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}       # SSH port (default: 22)
           key: ${{ secrets.DEPLOY_KEY }}         # SSH private key from GitHub Secrets
           script: |
-            cd /var/www/arista/
+            cd /var/www/arista
             echo "Deployment directory: $(pwd)"
-            # Run the deploy script
-            ./scripts/deploy.sh
+            # Add other deployment commands here
+
+            # Fix permission issues and run composer install
+            sudo chown -R www-data:www-data /var/www/arista
+            sudo chmod -R 775 /var/www/arista/storage /var/www/arista/bootstrap/cache
+
+            # Run composer install as www-data
+            sudo -u www-data composer install --no-dev --prefer-dist
