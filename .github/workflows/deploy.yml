@@ -1,7 +1,5 @@
 name: Deploy
 
-# Trigger the workflow on push and
-# pull request events on the production branch
 on:
   push:
     branches:
@@ -10,13 +8,13 @@ on:
     branches:
       - main
 
-# Authenticate to the the server via ssh
-# and run our deployment script
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
@@ -24,4 +22,6 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
-          script: "cd /var/www/arista"
+          script: |
+            cd /var/www/arista
+            echo "Deployment directory: $(pwd)"
