@@ -20,4 +20,4 @@ jobs:
 
       - name: Deploy to Server
         run: |
-          ssh root@arista 'cd /var/www/arista && git pull origin main && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache'
+          ssh root@arista.madignet.com 'cd /var/www/arista && git pull origin main && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache'
