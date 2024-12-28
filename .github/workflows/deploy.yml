@@ -1,27 +1,23 @@
-name: Deploy
+name: Deploy to Server
+
 on:
   push:
     branches:
-      - main
+      - main  # Sesuaikan dengan branch utama Anda
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      #cek apakah ini berhasil masuk atau tidak
-      - uses: actions/checkout@v2
-      - name: Deploy Code
-        uses: appleboy/ssh-action@v1.2.0
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
-          script: |
-            echo "Starting deployment..."
-            cd /var/www/html/arista
-            git pull origin main
-            echo "Deployment completed."
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
 
-
+      - name: Deploy to Server
+        run: |
+          ssh root@arista 'cd /var/www/arista && git pull origin main && php artisan migrate --force && php artisan config:cache && php artisan route:cache && php artisan view:cache'
