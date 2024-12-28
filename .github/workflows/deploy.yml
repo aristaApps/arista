@@ -37,6 +37,4 @@ jobs:
             # Fix permission issues and run composer install
             sudo chown -R www-data:www-data /var/www/arista
             sudo chmod -R 775 /var/www/arista/storage /var/www/arista/bootstrap/cache
-
-            # Run composer install as www-data
-            sudo -u www-data composer install --no-dev --prefer-dist
+            composer install --no-dev --prefer-dist --optimize-autoloader
