@@ -30,11 +30,4 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}       # SSH port (default: 22)
           key: ${{ secrets.DEPLOY_KEY }}         # SSH private key from GitHub Secrets
           script: |
-            cd /var/www/arista
-            echo "Deployment directory: $(pwd)"
-            # Add other deployment commands here
-
-            # Fix permission issues and run composer install
-            sudo chown -R www-data:www-data /var/www/arista
-            sudo chmod -R 775 /var/www/arista/storage /var/www/arista/bootstrap/cache
-            composer install --no-dev --prefer-dist --optimize-autoloader
+            script: "cd /var/www/arista && bash .scripts/deploy.sh"
