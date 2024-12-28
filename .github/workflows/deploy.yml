@@ -30,4 +30,4 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}       # SSH port (default: 22)
           key: ${{ secrets.DEPLOY_KEY }}         # SSH private key from GitHub Secrets
           script: |
-            script: "cd /var/www/arista && bash .scripts/deploy.sh"
+            script: "cd /var/www/arista/scripts/deploy.sh"
