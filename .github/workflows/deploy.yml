@@ -27,7 +27,5 @@ jobs:
           script: |
             cd /var/www/arista
             echo "Deployment directory: $(pwd)"
-            # Ensure the deploy script has executable permission
-            chmod +x .scripts/deploy.sh
             # Run the deploy script
             ./scripts/deploy.sh
