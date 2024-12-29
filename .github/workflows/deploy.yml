@@ -25,5 +25,12 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            # Navigate to the project directory
             cd /var/www/arista
+            composer install --no-dev --optimize-autoloader
+            php artisan migrate --force
+            php artisan cache:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan storage:link
+            chmod -R 775 storage bootstrap/cache
