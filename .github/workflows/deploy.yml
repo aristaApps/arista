@@ -1,36 +1,41 @@
-name: Deploy
+name: Deploy Laravel Application
 
 on:
   push:
     branches:
-      - main
+      - main  # Menentukan branch yang akan memicu deploy (misalnya, `main`)
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+    # Checkout repository
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.3
+    # Setup PHP (sesuaikan dengan versi PHP yang digunakan dalam proyek)
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.3' # Ganti dengan versi PHP yang sesuai
 
-      - name: Deploy to server
-        uses: appleboy/ssh-action@v0.1.6
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          port: ${{ secrets.SERVER_PORT }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          script: |
-            cd /var/www/arista
-            composer install --no-dev --optimize-autoloader
-            php artisan migrate --force
-            php artisan cache:clear
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-            php artisan storage:link
-            chmod -R 775 storage bootstrap/cache
+    # Install Composer
+    - name: Install Composer
+      run: |
+        curl -sS https://getcomposer.org/installer | php
+        mv composer.phar /usr/local/bin/composer
+
+    # Set up SSH key (jika menggunakan SSH untuk deploy)
+    - name: Set up SSH key
+      uses: appleboy/ssh-action@v0.1.6
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        port: ${{ secrets.PORT }}
+        script: |
+          # Jalankan script deploy.sh
+          cd /var/www/arista/.script
+          chmod +x deploy.sh
+          ./deploy.sh

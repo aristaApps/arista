@@ -1,24 +1,41 @@
 #!/bin/bash
-set -e
 
-echo "Deployment started ..."
+# Set the project directory
+PROJECT_DIR="/var/www/arista"
 
-# Enter maintenance mode or return true
-# if already is in maintenance mode
-(php artisan down) || true
-npm run build
-# Install composer dependencies
-git reset --hard HEAD
-git pull origin main --no-ff
-composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-composer dump-autoload
+# Navigate to the project directory
+cd $PROJECT_DIR || exit
+
+# Set the necessary permissions (make sure directories are writable)
+echo "Setting permissions for storage and bootstrap/cache..."
+chmod -R 775 storage bootstrap/cache
+
+# Run Composer install (skip dev dependencies and optimize autoloader)
+echo "Running composer install..."
+composer install --no-dev --optimize-autoloader
+
+# Run migrations if necessary
+echo "Running migrations..."
+php artisan migrate --force
+
+# Clear and cache Laravel configurations, routes, and views
+echo "Clearing and caching Laravel configurations, routes, and views..."
 php artisan cache:clear
-php artisan config:cache
 php artisan config:clear
+php artisan config:cache
 php artisan route:cache
 php artisan view:cache
-php artisan storage:link
-# Exit maintenance mode
-php artisan up
 
-echo "Deployment finished!"
+# Create symbolic link for storage folder
+echo "Creating symbolic link for storage folder..."
+php artisan storage:link
+
+# Fix permissions for log files
+echo "Setting permissions for log files..."
+chmod -R 775 storage/logs
+
+# Clear any cache or temporary files
+echo "Clearing cache..."
+php artisan cache:clear
+
+echo "Deploy completed successfully!"
