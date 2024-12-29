@@ -27,10 +27,3 @@ jobs:
           script: |
             # Navigate to the project directory
             cd /var/www/arista
-
-            # Laravel optimizations and cache clearing
-            php artisan cache:clear
-            php artisan config:cache
-            php artisan config:clear
-            php artisan route:cache
-            php artisan view:cache
