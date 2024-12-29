@@ -30,6 +30,7 @@ php artisan view:cache
 echo "Creating symbolic link for storage folder..."
 php artisan storage:link
 
+
 # Fix permissions for log files
 echo "Setting permissions for log files..."
 chmod -R 775 storage/logs
