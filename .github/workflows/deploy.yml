@@ -37,10 +37,6 @@ jobs:
             # Pull the latest changes
             git pull origin main --no-ff
 
-            # Set proper ownership and permissions
-            sudo chown -R $USER:www-data /var/www/arista
-            sudo chmod -R 775 storage bootstrap/cache
-
             # Install Composer dependencies
             composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
             composer dump-autoload
@@ -52,6 +48,3 @@ jobs:
             php artisan route:cache
             php artisan view:cache
             php artisan storage:link
-
-            # Exit maintenance mode
-            php artisan up
