@@ -4,17 +4,23 @@ on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       # Step 1: Checkout the repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+
+      - name: Install Composer Dependencies
+        run: composer install --optimize-autoloader --no-dev --no-progerss --no-interaction --prefer-dist
+
 
       # Step 2: Deploy to server via SSH
       - name: Deploy to server
@@ -27,19 +33,6 @@ jobs:
           script: |
             # Navigate to the project directory
             cd /var/www/arista
-
-            # Add the directory to Git's safe list
-            git config --global --add safe.directory /var/www/arista
-
-            # Reset to the latest commit
-            git reset --hard HEAD
-
-            # Pull the latest changes
-            git pull origin main --no-ff
-
-            # Install Composer dependencies
-            composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-            composer dump-autoload
 
             # Laravel optimizations and cache clearing
             php artisan cache:clear
