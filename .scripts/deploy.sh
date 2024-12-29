@@ -26,14 +26,6 @@ php artisan config:cache
 php artisan route:cache
 php artisan view:cache
 
-# Create symbolic link for storage folder
-echo "Creating symbolic link for storage folder..."
-php artisan storage:link
-
-# Fix permissions for log files
-echo "Setting permissions for log files..."
-chmod -R 775 storage/logs
-
 # Clear any cache or temporary files
 echo "Clearing cache..."
 php artisan cache:clear
