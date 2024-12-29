@@ -16,12 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Step 2: Set Git Safe Directory
-      - name: Set Git Safe Directory
-        run: |
-          git config --global --add safe.directory /var/www/arista
-
-      # Step 3: Deploy to server via SSH
+      # Step 2: Deploy to server via SSH
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
@@ -30,4 +25,4 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}       # SSH port (default: 22)
           key: ${{ secrets.DEPLOY_KEY }}         # SSH private key from GitHub Secrets
           script: |
-            script: "cd /var/www/arista/scripts/deploy.sh"
+            script: "cd /var/www/arista && .scripts/deploy.sh"
