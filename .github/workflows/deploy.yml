@@ -9,7 +9,6 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
@@ -18,11 +17,6 @@ jobs:
         with:
           php-version: 8.3
 
-      - name: Install Composer Dependencies
-        run: composer install --optimize-autoloader --no-dev --no-progerss --no-interaction --prefer-dist
-
-
-      # Step 2: Deploy to server via SSH
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
