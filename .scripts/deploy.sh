@@ -1,33 +1,24 @@
 #!/bin/bash
+set -e
 
-# Set the project directory
-PROJECT_DIR="/var/www/arista"
+echo "Deployment started ..."
 
-# Navigate to the project directory
-cd $PROJECT_DIR || exit
-
-# terik semua perubahan
-git pull origin main
-
-# Clear and cache Laravel configurations, routes, and views
-echo "Clearing and caching Laravel configurations, routes, and views..."
+# Enter maintenance mode or return true
+# if already is in maintenance mode
+(php artisan down) || true
+npm run build
+# Install composer dependencies
+git reset --hard HEAD
+git pull origin main --no-ff
+composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+composer dump-autoload
 php artisan cache:clear
-php artisan config:clear
 php artisan config:cache
+php artisan config:clear
 php artisan route:cache
 php artisan view:cache
-
-# Create symbolic link for storage folder
-echo "Creating symbolic link for storage folder..."
 php artisan storage:link
+# Exit maintenance mode
+php artisan up
 
-
-# Fix permissions for log files
-echo "Setting permissions for log files..."
-chmod -R 775 storage/logs
-
-# Clear any cache or temporary files
-echo "Clearing cache..."
-php artisan cache:clear
-
-echo "Deploy completed successfully!"
+echo "Deployment finished!"
