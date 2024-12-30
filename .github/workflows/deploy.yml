@@ -35,16 +35,12 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
+          # Setup sudoers untuk www-data agar tidak meminta password
+          echo "www-data ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/www-data
+
           # Set permissions for necessary directories
           sudo chown -R www-data:www-data /var/www/arista
           sudo chmod -R 775 /var/www/arista
-
-          # Check if vite.config.js exists
-          ls -l /var/www/arista/vite.config.js
-
-          # Set correct permissions for storage
-          sudo chown -R www-data:www-data /var/www/arista/storage
-          sudo chmod -R 775 /var/www/arista/storage
 
           # Enter maintenance mode if needed (e.g., Laravel)
           cd /var/www/arista && php artisan down
@@ -58,6 +54,3 @@ jobs:
 
           # Optionally, clear cache or optimize (depending on your application)
           sudo -u www-data php artisan optimize
-
-          # Additional deployment commands (if needed)
-          # Example: Restart services, clear cache, etc.
