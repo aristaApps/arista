@@ -7,6 +7,8 @@ PROJECT_DIR="/var/www/arista"
 cd $PROJECT_DIR || exit
 
 # terik semua perubahan
+git add .
+git commit -m "*"
 git pull origin main
 
 # Clear and cache Laravel configurations, routes, and views
