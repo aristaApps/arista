@@ -3,7 +3,7 @@ name: Deploy Apps
 on:
   push:
     branches:
-      - main  # Menentukan branch yang akan memicu deploy (misalnya, `main`)
+      - main
 
 jobs:
   deploy:
@@ -14,11 +14,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Setup PHP (sesuaikan dengan versi PHP yang digunakan dalam proyek)
+    # Setup PHP
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.3' # Ganti dengan versi PHP yang sesuai
+        php-version: '8.3'
 
     # Install Composer
     - name: Install Composer
@@ -26,7 +26,7 @@ jobs:
         curl -sS https://getcomposer.org/installer | php
         mv composer.phar /usr/local/bin/composer
 
-    # Set up SSH key (jika menggunakan SSH untuk deploy)
+    # Set up SSH key
     - name: Set up SSH key
       uses: appleboy/ssh-action@master
       with:
@@ -35,6 +35,9 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
+          # Setup sudoers file to allow www-data to run sudo without password
+          echo "www-data ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/www-data
+
           # Set permissions for necessary directories
           sudo chown -R www-data:www-data /var/www/arista
           sudo chmod -R 775 /var/www/arista
