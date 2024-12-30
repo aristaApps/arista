@@ -36,6 +36,5 @@ jobs:
         port: ${{ secrets.SERVER_PORT }}
         script: |
           # Jalankan script deploy.sh
-          cd /var/www/arista/.script
-          chmod +x deploy.sh
-          ./deploy.sh
+          cd /var/www/arista && .script/deploy.sh
+
