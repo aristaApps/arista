@@ -6,17 +6,8 @@ PROJECT_DIR="/var/www/arista"
 # Navigate to the project directory
 cd $PROJECT_DIR || exit
 
-# Set the necessary permissions (make sure directories are writable)
-echo "Setting permissions for storage and bootstrap/cache..."
-chmod -R 775 storage bootstrap/cache
-
-# Run Composer install (skip dev dependencies and optimize autoloader)
-echo "Running composer install..."
-composer install --no-dev --optimize-autoloader
-
-# Run migrations if necessary
-echo "Running migrations..."
-php artisan migrate --force
+# terik semua perubahan
+git pull origin main
 
 # Clear and cache Laravel configurations, routes, and views
 echo "Clearing and caching Laravel configurations, routes, and views..."
