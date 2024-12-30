@@ -35,6 +35,29 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
-          # Jalankan script deploy.sh
-          cd /var/www/arista && bash .script/deploy.sh
+          # Set permissions for necessary directories
+          sudo chown -R www-data:www-data /var/www/arista
+          sudo chmod -R 775 /var/www/arista
 
+          # Check if vite.config.js exists
+          ls -l /var/www/arista/vite.config.js
+
+          # Set correct permissions for storage
+          sudo chown -R www-data:www-data /var/www/arista/storage
+          sudo chmod -R 775 /var/www/arista/storage
+
+          # Enter maintenance mode if needed (e.g., Laravel)
+          cd /var/www/arista && php artisan down
+
+          # Run build as www-data (to avoid permission issues)
+          sudo -u www-data npm install
+          sudo -u www-data npm run build
+
+          # Bring the app back up after build
+          cd /var/www/arista && php artisan up
+
+          # Optionally, clear cache or optimize (depending on your application)
+          sudo -u www-data php artisan optimize
+
+          # Additional deployment commands (if needed)
+          # Example: Restart services, clear cache, etc.
