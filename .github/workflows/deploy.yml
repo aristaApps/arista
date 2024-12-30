@@ -35,6 +35,7 @@
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            # Jalankan script deploy.sh
-            cd /var/www/arista && bash .script/deploy.sh
+            script: |
+              # Panggil skrip deploy.sh untuk menjalankan perintah di server
+              cd /var/www/arista && bash .script/deploy.sh
 
