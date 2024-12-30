@@ -35,19 +35,6 @@ jobs:
         key: ${{ secrets.DEPLOY_KEY }}
         port: ${{ secrets.SERVER_PORT }}
         script: |
-          # Set permissions for necessary directories
+          # Pastikan direktori dan file sudah dimiliki oleh www-data
           sudo chown -R www-data:www-data /var/www/arista
           sudo chmod -R 775 /var/www/arista
-
-          # Enter maintenance mode if needed (e.g., Laravel)
-          cd /var/www/arista && php artisan down
-
-          # Run build as www-data (no sudo required)
-          su -s /bin/bash -c "npm install" www-data
-          su -s /bin/bash -c "npm run build" www-data
-
-          # Bring the app back up after build
-          cd /var/www/arista && php artisan up
-
-          # Optionally, clear cache or optimize (depending on your application)
-          su -s /bin/bash -c "php artisan optimize" www-data
