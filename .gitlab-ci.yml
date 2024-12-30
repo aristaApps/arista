@@ -1,0 +1,11 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  image: appleboy/drone-ssh  # Menggunakan image Docker yang dapat menjalankan SSH
+  script:
+    - echo "Deploying to $SERVER_HOST"
+    - ssh -o StrictHostKeyChecking=no -p $SERVER_PORT -i $DEPLOY_KEY $SERVER_USER@$SERVER_HOST "bash -s" < deploy.sh
+  only:
+    - main  # Menjalankan deploy hanya pada cabang main
