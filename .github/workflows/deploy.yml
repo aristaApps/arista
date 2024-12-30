@@ -28,7 +28,7 @@ jobs:
 
     # Set up SSH key (jika menggunakan SSH untuk deploy)
     - name: Set up SSH key
-      uses: appleboy/ssh-action@v0.1.6
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SERVER_HOST }}
         username: ${{ secrets.SERVER_USER }}
@@ -36,5 +36,5 @@ jobs:
         port: ${{ secrets.SERVER_PORT }}
         script: |
           # Jalankan script deploy.sh
-          cd /var/www/arista && .script/deploy.sh
+          "cd /var/www/arista && bash .scripts/deploy.sh"
 
