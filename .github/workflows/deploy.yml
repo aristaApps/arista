@@ -1,41 +1,15 @@
-  name: Deploy Apps
+#!/bin/bash
 
-  on:
-    push:
-      branches:
-        - main  # Menentukan branch yang akan memicu deploy (misalnya, `main`)
+# Pastikan direktori dan file dimiliki oleh www-data
+sudo chown -R www-data:www-data /var/www/arista
+sudo chmod -R 775 /var/www/arista
 
-  jobs:
-    deploy:
-      runs-on: ubuntu-latest
+# Jalankan build dengan user www-data
+su -s /bin/bash -c "npm install" www-data
+su -s /bin/bash -c "npm run build" www-data
 
-      steps:
-      # Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+# Jalankan maintenance mode dengan user www-data
+sudo -u www-data php artisan down
 
-      # Setup PHP (sesuaikan dengan versi PHP yang digunakan dalam proyek)
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3' # Ganti dengan versi PHP yang sesuai
-
-      # Install Composer
-      - name: Install Composer
-        run: |
-          curl -sS https://getcomposer.org/installer | php
-          mv composer.phar /usr/local/bin/composer
-
-      # Set up SSH key (jika menggunakan SSH untuk deploy)
-      - name: Set up SSH key
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
-          script: |
-            script: |
-              # Panggil skrip deploy.sh untuk menjalankan perintah di server
-              cd /var/www/arista && bash .script/deploy.sh
-
+# Restart aplikasi setelah build selesai
+cd /var/www/arista && php artisan up
