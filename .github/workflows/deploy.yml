@@ -20,11 +20,11 @@ jobs:
       with:
         php-version: '8.3'
 
-     # Install Composer
-     - name: Install Composer
-     run: |
-       curl -sS https://getcomposer.org/installer | php
-       mv composer.phar /usr/local/bin/composer
+    # Install Composer
+    - name: Install Composer
+      run: |
+        curl -sS https://getcomposer.org/installer | php
+        mv composer.phar /usr/local/bin/composer
 
     # Set up SSH key
     - name: Set up SSH key
@@ -43,11 +43,11 @@ jobs:
           cd /var/www/arista && php artisan down
 
           # Run build as www-data (no sudo required)
-          npm install
-          npm run build
+          su -s /bin/bash -c "npm install" www-data
+          su -s /bin/bash -c "npm run build" www-data
 
           # Bring the app back up after build
           cd /var/www/arista && php artisan up
 
           # Optionally, clear cache or optimize (depending on your application)
-          php artisan optimize
+          su -s /bin/bash -c "php artisan optimize" www-data
