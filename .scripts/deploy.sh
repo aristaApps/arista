@@ -1,15 +1,25 @@
 #!/bin/bash
 
-# Pastikan direktori dan file dimiliki oleh www-data
-sudo chown -R www-data:www-data /var/www/arista
-sudo chmod -R 775 /var/www/arista
+set -e
 
-# Jalankan build dengan user www-data
-su -s /bin/bash -c "npm install" www-data
-su -s /bin/bash -c "npm run build" www-data
+echo "Deployment started ..."
 
-# Jalankan maintenance mode dengan user www-data
-sudo -u www-data php artisan down
+# Enter maintenance mode or return true
+# if already is in maintenance mode
+(php artisan down) || true
+npm run build
+# Install composer dependencies
+git reset --hard HEAD
+git pull origin main --no-ff
+composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+composer dump-autoload
+php artisan cache:clear
+php artisan config:cache
+php artisan config:clear
+php artisan route:cache
+php artisan view:cache
+php artisan storage:link
+# Exit maintenance mode
+php artisan up
 
-# Restart aplikasi setelah build selesai
-cd /var/www/arista && php artisan up
+echo "Deployment finished!"
