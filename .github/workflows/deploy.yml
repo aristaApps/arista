@@ -27,7 +27,7 @@
           mv composer.phar /usr/local/bin/composer
 
       # Set up SSH key (jika menggunakan SSH untuk deploy)
-      # - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
@@ -36,6 +36,7 @@
           key: ${{ secrets.DEPLOY_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           script: |
-            # Jalankan script deploy.sh
-            cd /var/www/arista && bash .scripts/deploy.sh
+            cd /var/www/arista
+            chmod +x .scripts/deploy.sh
+            bash .scripts/deploy.sh
 

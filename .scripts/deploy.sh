@@ -22,4 +22,3 @@ php artisan storage:link
 # Exit maintenance mode
 php artisan up
 
-echo "Deployment finished!"
