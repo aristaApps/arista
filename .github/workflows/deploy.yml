@@ -13,6 +13,11 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
+    - name: Create SSH Key File
+      run: |
+        echo "${{ secrets.DEPLOY_KEY }}" > deploy_key
+        chmod 600 deploy_key
+
     - name: Upload files to server
       run: |
         scp -r -i ${{ secrets.DEPLOY_KEY }} -P ${{ secrets.SERVER_PORT }} ./ root@${{ secrets.SERVER_HOST }}:/var/www/arista
