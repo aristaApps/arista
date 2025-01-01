@@ -27,7 +27,7 @@
           mv composer.phar /usr/local/bin/composer
 
       # Set up SSH key (jika menggunakan SSH untuk deploy)
-      - uses: actions/checkout@v2
+      # - uses: actions/checkout@v2
       - name: Deploy to server
         uses: appleboy/ssh-action@master
         with:
