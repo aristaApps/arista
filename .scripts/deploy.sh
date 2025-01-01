@@ -4,17 +4,31 @@ set -e
 
 echo "Deployment started ..."
 
-# Menambahkan -S agar sudo membaca password dari input
-echo "your_password_here" | sudo -S php artisan down || true
-echo "your_password_here" | sudo -S git reset --hard HEAD
-echo "your_password_here" | sudo -S git pull origin main --no-ff
-echo "your_password_here" | sudo -S composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-echo "your_password_here" | sudo -S composer dump-autoload
-echo "your_password_here" | sudo -S php artisan cache:clear
-echo "your_password_here" | sudo -S php artisan config:cache
-echo "your_password_here" | sudo -S php artisan route:cache
-echo "your_password_here" | sudo -S php artisan view:cache
-echo "your_password_here" | sudo -S php artisan storage:link
-echo "your_password_here" | sudo -S php artisan up
+# Pindah ke direktori proyek
+cd /var/www/arista
+
+# Masuk ke maintenance mode
+php artisan down || true
+
+# Reset dan tarik pembaruan dari Git
+git reset --hard HEAD
+git pull origin main --no-ff
+
+# Install dependencies dengan Composer
+composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+composer dump-autoload
+
+# Clear dan cache konfigurasi Laravel
+php artisan cache:clear
+php artisan config:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+
+# Membuat symlink untuk storage
+php artisan storage:link
+
+# Keluar dari maintenance mode
+php artisan up
 
 echo "Deployment finished!"
