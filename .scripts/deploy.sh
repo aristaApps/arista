@@ -4,17 +4,17 @@ set -e
 
 echo "Deployment started ..."
 
-# Gunakan perintah sudo tanpa interaksi
-sudo php artisan down || true
-sudo git reset --hard HEAD
-sudo git pull origin main --no-ff
-sudo composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-sudo composer dump-autoload
-sudo php artisan cache:clear
-sudo php artisan config:cache
-sudo php artisan route:cache
-sudo php artisan view:cache
-sudo php artisan storage:link
-sudo php artisan up
+# Menambahkan -S agar sudo membaca password dari input
+echo "your_password_here" | sudo -S php artisan down || true
+echo "your_password_here" | sudo -S git reset --hard HEAD
+echo "your_password_here" | sudo -S git pull origin main --no-ff
+echo "your_password_here" | sudo -S composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+echo "your_password_here" | sudo -S composer dump-autoload
+echo "your_password_here" | sudo -S php artisan cache:clear
+echo "your_password_here" | sudo -S php artisan config:cache
+echo "your_password_here" | sudo -S php artisan route:cache
+echo "your_password_here" | sudo -S php artisan view:cache
+echo "your_password_here" | sudo -S php artisan storage:link
+echo "your_password_here" | sudo -S php artisan up
 
 echo "Deployment finished!"
