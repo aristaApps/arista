@@ -1,44 +1,25 @@
-  name: Deploy
+name: Deploy
 
-  on:
-    push:
-      branches:
-        - main  # Menentukan branch yang akan memicu deploy (misalnya, `main`)
+on:
+  push:
+    branches:
+      - main
 
-  jobs:
-    deploy:
-      runs-on: ubuntu-latest
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
 
-      steps:
-      # Checkout repository
-      - name: Checkout repository
-        uses: actions/checkout@v2
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-      # Setup PHP (sesuaikan dengan versi PHP yang digunakan dalam proyek)
-      - name: Set up PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.3' # Ganti dengan versi PHP yang sesuai
-
-      # Install Composer
-      - name: Install Composer
-        run: |
-          curl -sS https://getcomposer.org/installer | php
-          mv composer.phar /usr/local/bin/composer
-
-      # Set up SSH key (jika menggunakan SSH untuk deploy)
-      - name: Deploy to server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.DEPLOY_KEY }}
-          port: ${{ secrets.SERVER_PORT }}
-          script: |
-            # Pastikan script dapat dijalankan
-            sudo chown www-data:www-data /var/www/arista/.scripts/deploy.sh
-            sudo chmod +x /var/www/arista/.scripts/deploy.sh
-
-            # Jalankan script deploy
-            cd /var/www/arista && sudo -u www-data bash .scripts/deploy.sh
-
+    - name: Deploy to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USER }}
+        key: ${{ secrets.DEPLOY_KEY }}
+        port: ${{ secrets.SERVER_PORT }}
+        script: |
+          cd /var/www/arista
+          sudo bash .scripts/deploy.sh

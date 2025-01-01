@@ -4,21 +4,17 @@ set -e
 
 echo "Deployment started ..."
 
-# Enter maintenance mode or return true
-# if already is in maintenance mode
-(php artisan down) || true
-npm run build
-# Install composer dependencies
-git reset --hard HEAD
-git pull origin main --no-ff
-composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-composer dump-autoload
-php artisan cache:clear
-php artisan config:cache
-php artisan config:clear
-php artisan route:cache
-php artisan view:cache
-php artisan storage:link
-# Exit maintenance mode
-php artisan up
+# Gunakan perintah sudo tanpa interaksi
+sudo php artisan down || true
+sudo git reset --hard HEAD
+sudo git pull origin main --no-ff
+sudo composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+sudo composer dump-autoload
+sudo php artisan cache:clear
+sudo php artisan config:cache
+sudo php artisan route:cache
+sudo php artisan view:cache
+sudo php artisan storage:link
+sudo php artisan up
 
+echo "Deployment finished!"
