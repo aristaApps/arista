@@ -102,7 +102,7 @@
                 <div class="card-body">
                     @if($hkt->file_path)
                         <!-- Menampilkan file PDF menggunakan iframe -->
-                        <iframe src="{{ Storage::urpl(($hkt->file_path)) }}" type="application/pdf" width="100%" height="741px"></iframe>
+                        <iframe src="{{ Storage::url($hkt->file_path) }}" type="application/pdf" width="100%" height="741px"></iframe>
                         @else
                         <p>Tidak ada file yang ditampilkan</p>
                     @endif
