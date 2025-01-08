@@ -73,9 +73,12 @@ class HktController extends Controller
         // Handle file upload
         if ($request->hasFile('file_path')) {
             Log::info('File detected for upload');
+            Log::info('File Info: ', $request->file('file_path')->getClientOriginalName());
             $filePath = $request->file('file_path')->store('hkts_files', 'public');
             Log::info('File uploaded to: ' . $filePath);
             $validated['file_path'] = $filePath;
+        } else {
+            Log::warning('No file uploaded');
         }
 
         // Create the HKT record
