@@ -33,7 +33,7 @@ jobs:
 
       - name: Deploy Environment
         run: |
-          ssh -p ${{ secrets.SSH_PORT }} root@${{ secrets.SSH_HOST }} << 'EOF'
+          ssh -p ${{ secrets.SSH_PORT }} www-data@${{ secrets.SSH_HOST }} << 'EOF'
           cd /var/www/arista
           php artisan down || true
           composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
