@@ -35,7 +35,9 @@ jobs:
         run: |
           ssh -p ${{ secrets.SSH_PORT }} arista@${{ secrets.SSH_HOST }} << 'EOF'
           cd /var/www/arista
-          git add .  # Menambahkan perubahan ke staging
+          git config --global user.email "mallawaconnection@gmail.com"
+          git config --global user.name "mallawatech"
+          git add .  # Menambahkan perubahan lokal
           git commit -m "Committing local changes before pulling" || true  # Commit perubahan lokal jika ada
           git pull origin main
           php artisan down || true
