@@ -33,17 +33,13 @@ jobs:
 
       - name: Deploy Environment
         run: |
-          if [ -d "/var/www/arista" ]; then
-            cd /var/www/arista
-            php artisan down || true
-            composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-            php artisan cache:clear
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-            php artisan up
-          else
-            echo "Directory /var/www/arista does not exist" && exit 1
-          fi
-        env:
-          COMPOSER_PROCESS_TIMEOUT: 0
+          ssh -p ${{ secrets.SSH_PORT }} user@${{ secrets.SSH_HOST }} << 'EOF'
+          cd /var/www/arista
+          php artisan down || true
+          composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+          php artisan cache:clear
+          php artisan config:cache
+          php artisan route:cache
+          php artisan view:cache
+          php artisan up
+          EOF
