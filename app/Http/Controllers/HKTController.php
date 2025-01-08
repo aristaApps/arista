@@ -48,7 +48,7 @@ class HktController extends Controller
     public function store(Request $request)
     {
         Log::info('Store method called');
-        Log::info('Request Data: ', $request->all());
+        Log::info('Request Data:', $request->all());  // Ini benar, mengirimkan array sebagai konteks
 
         // Validate input
         $validated = $request->validate([
@@ -72,8 +72,7 @@ class HktController extends Controller
 
         // Handle file upload
         if ($request->hasFile('file_path')) {
-            Log::info('File detected for upload');
-            Log::info('File Info: ', $request->file('file_path')->getClientOriginalName());
+            Log::info('File detected for upload', ['file' => $request->file('file_path')->getClientOriginalName()]);
             $filePath = $request->file('file_path')->store('hkts_files', 'public');
             Log::info('File uploaded to: ' . $filePath);
             $validated['file_path'] = $filePath;
