@@ -46,43 +46,43 @@ class HktController extends Controller
     }
 
     public function store(Request $request)
-        {
-            Log::info('Store method called');
-            Log::info('Request Data: ', $request->all());
+    {
+        Log::info('Store method called');
+        Log::info('Request Data: ', $request->all());
 
-            // Validate input
-            $validated = $request->validate([
-                'nomor_surat' => 'required|string|max:255',
-                'tanggal_surat' => 'required|date',
-                'tahun_surat' => 'required|integer',
-                'pencipta_arsip' => 'required|string|max:255',
-                'unit_pengelola_id' => 'required|exists:unit_pengelolas,id',
-                'kode_klasifikasi_id' => 'required|exists:klasifikasi,id',
-                'prihal' => 'required|string|max:255',
-                'uraian_informasi' => 'required|string',
-                'tingkat_perkembangan_id' => 'required|exists:tingkat_perkembangans,id',
-                'lokasi_arsip_id' => 'required|exists:lokasi_arsips,id',
-                'jumlah_item' => 'required|integer',
-                'lampiran' => 'nullable|string',
-                'retensi' => 'required|integer',
-                'keterangan' => 'required|string|in:Aktif,Inaktif',
-                'nasib_akhir_id' => 'required|exists:nasib_akhir,id',
-                'file_path' => 'nullable|file|mimes:pdf|max:5120',
-            ]);
+        // Validate input
+        $validated = $request->validate([
+            'nomor_surat' => 'required|string|max:255',
+            'tanggal_surat' => 'required|date',
+            'tahun_surat' => 'required|integer',
+            'pencipta_arsip' => 'required|string|max:255',
+            'unit_pengelola_id' => 'required|exists:unit_pengelolas,id',
+            'kode_klasifikasi_id' => 'required|exists:klasifikasi,id',
+            'prihal' => 'required|string|max:255',
+            'uraian_informasi' => 'required|string',
+            'tingkat_perkembangan_id' => 'required|exists:tingkat_perkembangans,id',
+            'lokasi_arsip_id' => 'required|exists:lokasi_arsips,id',
+            'jumlah_item' => 'required|integer',
+            'lampiran' => 'nullable|string',
+            'retensi' => 'required|integer',
+            'keterangan' => 'required|string|in:Aktif,Inaktif',
+            'nasib_akhir_id' => 'required|exists:nasib_akhir,id',
+            'file_path' => 'nullable|file|mimes:pdf|max:5120',
+        ]);
 
-            // Handle file upload
-            if ($request->hasFile('file_path')) {
-                Log::info('File detected for upload');
-                $filePath = $request->file('file_path')->store('hkts_files', 'public');
-                Log::info('File uploaded to: ' . $filePath);
-                $validated['file_path'] = $filePath;
-            }
+        // Handle file upload
+        if ($request->hasFile('file_path')) {
+            Log::info('File detected for upload');
+            $filePath = $request->file('file_path')->store('hkts_files', 'public');
+            Log::info('File uploaded to: ' . $filePath);
+            $validated['file_path'] = $filePath;
+        }
 
-            // Create the HKT record
-            Hkt::create($validated);
-            Alert::success('Berhasil', 'Data HKT berhasil disimpan.');
-            Log::info('HKT record successfully created');
-            return redirect()->route('hkt.index');
+        // Create the HKT record
+        Hkt::create($validated);
+        Alert::success('Berhasil', 'Data HKT berhasil disimpan.');
+        Log::info('HKT record successfully created');
+        return redirect()->route('hkt.index');
     }
 
     public function edit(Hkt $hkt)
