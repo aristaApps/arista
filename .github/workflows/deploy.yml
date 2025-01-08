@@ -1,39 +1,49 @@
-name: deploy
+name: Deploy
 
-on: 
+on:
   push:
-    branches: 
+    branches:
       - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v3
         with:
-            php-version: 8.2
-            tools: composer:v2
-            coverage: none
-      - name: Install Composer dependencies
-        run: composer update
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
+
+      - name: Install Composer Dependencies
+        run: composer install --no-dev --prefer-dist --no-interaction
+
       - name: Setup SSH
         uses: kielabokkie/ssh-key-and-known-hosts-action@v1.2.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
           ssh-host: ${{ secrets.SSH_HOST }}
           ssh-port: ${{ secrets.SSH_PORT }}
+
       - name: Deploy Environment
         run: |
-          cd /var/www/arista
-          php artisan down || true
-          composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
-          php artisan cache:clear
-          php artisan config:cache
-          php artisan route:cache
-          php artisan view:cache
-          php artisan up
-          EOF
-            
+          if [ -d "/var/www/arista" ]; then
+            cd /var/www/arista
+            php artisan down || true
+            composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+            php artisan cache:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            php artisan up
+          else
+            echo "Directory /var/www/arista does not exist" && exit 1
+          fi
+        env:
+          COMPOSER_PROCESS_TIMEOUT: 0
