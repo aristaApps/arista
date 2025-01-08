@@ -34,7 +34,7 @@ class HktController extends Controller
     public function create()
     {
         Log::info('Fetching dropdown data for create form');
-        $klasifikasi = Klasifikasi::all();
+        $klasifikasi = Klasifikasi::alll();
         $tingkatPerkembangan = TingkatPerkembangan::all();
         $lokasiArsip = LokasiArsip::all();
         $nasibAkhir = NasibAkhir::all();
