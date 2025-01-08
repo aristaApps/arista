@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -29,7 +30,7 @@ class DashboardController extends Controller
 
             // Output hasil untuk debugging
             // Cek apa hasil query SHOW TABLES
-            \Log::info('Tables:', $tables);
+            Log::info('Tables:', $tables);
 
             // Memastikan nama kolom untuk mengambil nama tabel sesuai dengan database yang aktif
             $tableNameColumn = 'Tables_in_' . $databaseName;
@@ -41,7 +42,7 @@ class DashboardController extends Controller
 
             foreach ($tables as $table) {
                 // Outputkan isi dari setiap tabel untuk debugging
-                \Log::info('Table Object:', (array) $table);
+                Log::info('Table Object:', (array) $table);
 
                 // Mendapatkan nama tabel dari hasil query
                 if (!isset($table->{$tableNameColumn})) {
