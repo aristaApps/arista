@@ -46,31 +46,6 @@ class HktController extends Controller
     }
 
     public function store(Request $request)
-    {
-        Log::info('Store method called');
-        Log::info('Request Data: ', $request->all());
-
-        // Validate input
-        $validated = $request->validate([
-            'nomor_surat' => 'required|string|max:255',
-            'tanggal_surat' => 'required|date',
-            'tahun_surat' => 'required|integer',
-            'pencipta_arsip' => 'required|string|max:255',
-            'unit_pengelola_id' => 'required|exists:unit_pengelolas,id',
-            'kode_klasifikasi_id' => 'required|exists:klasifikasi,id',
-            'prihal' => 'required|string|max:255',
-            'uraian_informasi' => 'required|string',
-            'tingkat_perkembangan_id' => 'required|exists:tingkat_perkembangans,id',
-            'lokasi_arsip_id' => 'required|exists:lokasi_arsips,id',
-            'jumlah_item' => 'required|integer',
-            'lampiran' => 'nullable|string',
-            'retensi' => 'required|integer',
-            'keterangan' => 'required|string|in:Aktif,Inaktif',
-            'nasib_akhir_id' => 'required|exists:nasib_akhir,id',
-            'file_path' => 'nullable|file|mimes:pdf|max:5120',
-        ]);
-
-        public function store(Request $request)
         {
             Log::info('Store method called');
             Log::info('Request Data: ', $request->all());
