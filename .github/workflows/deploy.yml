@@ -33,7 +33,7 @@ jobs:
 
       - name: Deploy Environment
         run: |
-          ssh -p ${{ secrets.SSH_PORT }} www-data@${{ secrets.SSH_HOST }} << 'EOF'
+          ssh -p ${{ secrets.SSH_PORT }} arista@${{ secrets.SSH_HOST }} << 'EOF'
           cd /var/www/arista
           php artisan down || true
           composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
@@ -43,3 +43,5 @@ jobs:
           php artisan view:cache
           php artisan up
           EOF
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh-auth.sock
