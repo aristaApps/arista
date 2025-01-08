@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class DashboardController extends Controller
 {
@@ -28,7 +29,7 @@ class DashboardController extends Controller
             $tables = DB::select('SHOW TABLES');
 
             // Menampilkan hasil untuk memastikan formatnya
-            \Log::info("Tables: " . json_encode($tables)); // Tambahkan log
+            Log::info("Tables: " . json_encode($tables)); // Tambahkan log
 
             // Memastikan nama kolom untuk mengambil nama tabel sesuai dengan database yang aktif
             $tableNameColumn = 'Tables_in_' . $databaseName;
@@ -40,7 +41,7 @@ class DashboardController extends Controller
 
             foreach ($tables as $table) {
                 // Mengecek nama kolom yang ada dalam objek table
-                \Log::info("Table Object: " . json_encode($table));
+                Log::info("Table Object: " . json_encode($table));
 
                 // Mendapatkan nama tabel dengan mengakses properti yang sesuai
                 $tableName = isset($table->{$tableNameColumn}) ? $table->{$tableNameColumn} : null;
