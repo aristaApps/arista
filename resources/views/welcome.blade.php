@@ -27,7 +27,7 @@
                         {{-- <h1 class="text-4xl font-extrabold text-gray-800 mb-4"></h1> --}}
                         <p class="text-lg text-center text-gray-600 mb-5">Manajemen file arsip dengan mudah dan cepat</p>
                         <a href="{{ route('login') }}" class="w-1/2 mx-auto text-center py-3 text-white bg-blue-500 rounded-full hover:bg-blue-600">Login</a>
-                        {{-- <a href="{{ route('register') }}" class="w-1/2 mx-auto text-center py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600">Register</a> --}}
+                        <a href="{{ route('register') }}" class="w-1/2 mx-auto text-center py-3 text-white bg-blue-500 rounded-md hover:bg-blue-600">Register</a>
                     </div>
 
                     <!-- Kolom 2: Gambar -->
