@@ -30,7 +30,7 @@ class Hkt extends Model
 
     public function nasibAkhir()
     {
-        return $this->belongsTo(NasibAkhirs::class, 'nasib_akhir_id');
+        return $this->belongsTo(NasibAkhir::class, 'nasib_akhir_id');
     }
 
     public function unitPengelola()
