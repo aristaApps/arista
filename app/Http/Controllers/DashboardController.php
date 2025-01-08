@@ -26,9 +26,17 @@ class DashboardController extends Controller
         // Mendapatkan semua tabel di database
         $tables = DB::select('SHOW TABLES');
 
+        // Memastikan nama kolom untuk mengambil nama tabel sesuai dengan database yang aktif
+        $tableNameColumn = 'Tables_in_' . $databaseName;
+
         foreach ($tables as $table) {
-            // Mendapatkan nama tabel
-            $tableName = $table->{'Tables_in_' . $databaseName};
+            // Mendapatkan nama tabel dari hasil query
+            $tableName = $table->{$tableNameColumn};  // Mengakses nama tabel dengan nama kolom yang sesuai
+
+            // Menangani jika nama tabel tidak ditemukan
+            if (!$tableName) {
+                continue;  // Lewati jika nama tabel tidak valid
+            }
 
             // Mendapatkan semua kolom dari tabel
             $columns = DB::getSchemaBuilder()->getColumnListing($tableName);
