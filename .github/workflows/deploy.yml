@@ -35,7 +35,8 @@ jobs:
         run: |
           ssh -p ${{ secrets.SSH_PORT }} arista@${{ secrets.SSH_HOST }} << 'EOF'
           cd /var/www/arista
-          git add .
+          git add .  # Menambahkan perubahan ke staging
+          git commit -m "Committing local changes before pulling" || true  # Commit perubahan lokal jika ada
           git pull origin main
           php artisan down || true
           composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
