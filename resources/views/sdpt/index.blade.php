@@ -84,7 +84,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="15" class="text-center">Tidak ada data SDPT.</td>
+                                        <td colspan="15" class="text-center">Tidak ada data.</td>
                                     </tr>
                                 @endforelse
                             </tbody>
