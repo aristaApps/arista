@@ -22,9 +22,9 @@
                                 <tr>
                                     <th class="text-center">No. Surat</th>
                                     <th class="text-center">Tanggal Surat</th>
-                                    <th class="text-center">Tahun Surat</th>
+                                    {{-- <th class="text-center">Tahun Surat</th> --}}
                                     <th class="text-center">Pencipta Arsip</th>
-                                    <th class="text-center">Unit Pengelola</th>
+                                    {{-- <th class="text-center">Unit Pengelola</th> --}}
                                     <th class="text-center">Kode Klasifikasi</th>
                                     <th class="text-center">Prihal</th>
                                     {{-- <th class="text-center">Uraian Informasi</th> --}}
@@ -43,13 +43,13 @@
                                     <tr>
                                         <td>{{ $hkt->nomor_surat }}</td>
                                         <td>{{ \Carbon\Carbon::parse($hkt->tanggal_surat)->format('d-m-Y') }}</td>
-                                        <td>{{ $hkt->tahun_surat }}</td>
+                                        {{-- <td>{{ $hkt->tahun_surat }}</td> --}}
                                         <td>{{ $hkt->pencipta_arsip ?? '-' }}</td>
-                                        <td>{{ $hkt->unitPengelola->unit_pengelola ?? '-' }}</td>
+                                        {{-- <td>{{ $hkt->unitPengelola->unit_pengelola ?? '-' }}</td> --}}
                                         <td>{{ $hkt->klasifikasi->nama ?? '-' }}</td>
                                         <td>{{ $hkt->prihal }}</td>
                                         {{-- <td>{{ $hkt->uraian_informasi }}</td> --}}
-                                        <td>{{ $hkt->tingkatPerkembangan->tingkat_perkembangan ?? '-' }}</td>
+                                        <td class="text-center">{{ $hkt->tingkatPerkembangan->tingkat_perkembangan ?? '-' }}</td>
                                         <td>{{ $hkt->lokasiArsip->ruangan ?? '-' }}</td>
                                         {{-- <td>{{ $hkt->jumlah_item ?? '-' }}</td> --}}
                                         {{-- <td>{{ $hkt->lampiran ?? '-' }}</td> --}}

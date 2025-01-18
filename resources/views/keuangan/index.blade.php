@@ -27,11 +27,11 @@
                                     <th class="text-center">Unit Pengelola</th>
                                     <th class="text-center">Kode Klasifikasi</th>
                                     <th class="text-center">Prihal</th>
-                                    <th class="text-center">Uraian Informasi</th>
+                                    {{-- <th class="text-center">Uraian Informasi</th> --}}
                                     <th class="text-center">Tingkat Perkembangan</th>
                                     <th class="text-center">Lokasi Arsip</th>
-                                    <th class="text-center">Jumlah Item</th>
-                                    <th class="text-center">Lampiran</th>
+                                    {{-- <th class="text-center">Jumlah Item</th> --}}
+                                    {{-- <th class="text-center">Lampiran</th> --}}
                                     <th class="text-center">Tahun Aktif</th>
                                     <th class="text-center">Keterangan</th>
                                     <th class="text-center">Nasib Akhir</th>
@@ -48,11 +48,11 @@
                                         <td>{{ $data->unitPengelola->unit_pengelola ?? '-' }}</td>
                                         <td>{{ $data->klasifikasi->nama ?? '-' }}</td>
                                         <td>{{ $data->prihal }}</td>
-                                        <td>{{ $data->uraian_informasi }}</td>
+                                        {{-- <td>{{ $data->uraian_informasi }}</td> --}}
                                         <td>{{ $data->tingkatPerkembangan->tingkat_perkembangan ?? '-' }}</td>
                                         <td>{{ $data->lokasiArsip->ruangan ?? '-' }}</td>
-                                        <td>{{ $data->jumlah_item ?? '-' }}</td>
-                                        <td>{{ $data->lampiran ?? '-' }}</td>
+                                        {{-- <td>{{ $data->jumlah_item ?? '-' }}</td> --}}
+                                        {{-- <td>{{ $data->lampiran ?? '-' }}</td> --}}
                                         <td>
                                             @if($data->retensi)
                                                 {{ $data->tahun_surat }} - {{ $data->tahun_surat + $data->retensi }}
